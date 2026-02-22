@@ -20,6 +20,7 @@ interface PostsClientProps {
 
 export default function PostsClient({ userId }: PostsClientProps) {
   const [currentPage, setCurrentPage] = useState(1);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedPost, setEditedPost] = useState<Post | null>(null);
@@ -47,7 +48,9 @@ export default function PostsClient({ userId }: PostsClientProps) {
     setSearchQuery(newQuery);
   }, 300);
 
-  const totalPages = Math.ceil(data.totalCount / 8);
+  const total = data?.totalCount || 0;
+
+  const totalPages = Math.ceil(total / 8);
   const posts = data?.posts ?? [];
 
   return (
